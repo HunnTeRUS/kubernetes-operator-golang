@@ -1,9 +1,9 @@
 apiVersion: apps.exemplo.com/v1alpha1
 kind: ConfigMapWatcher
 metadata:
-  labels:
-    app.kubernetes.io/name: kubernetes-operator-golang
-    app.kubernetes.io/managed-by: kustomize
-  name: configmapwatcher-sample
+  name: example-watcher
+  namespace: default
 spec:
-  # TODO(user): Add fields here
+  configMapName: example-config
+  configMapNamespace: default
+  eventEndpoint: https://webhook.site/934e928f-7135-4f26-8d98-fa4f0e693d9a

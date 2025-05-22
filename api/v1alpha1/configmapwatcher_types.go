@@ -25,17 +25,34 @@ import (
 
 // ConfigMapWatcherSpec defines the desired state of ConfigMapWatcher.
 type ConfigMapWatcherSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// ConfigMapName is the name of the ConfigMap to watch
+	ConfigMapName string `json:"configMapName"`
 
-	// Foo is an example field of ConfigMapWatcher. Edit configmapwatcher_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// ConfigMapNamespace is the namespace where the ConfigMap is located
+	ConfigMapNamespace string `json:"configMapNamespace"`
+
+	// EventEndpoint is the URL where events will be sent when the ConfigMap changes
+	EventEndpoint string `json:"eventEndpoint"`
+
+	// EventSecretName is the name of the secret containing credentials for the event endpoint
+	// +optional
+	EventSecretName string `json:"eventSecretName,omitempty"`
+
+	// EventSecretNamespace is the namespace where the event secret is located
+	// +optional
+	EventSecretNamespace string `json:"eventSecretNamespace,omitempty"`
 }
 
 // ConfigMapWatcherStatus defines the observed state of ConfigMapWatcher.
 type ConfigMapWatcherStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// LastConfigMapVersion is the last observed version of the ConfigMap
+	LastConfigMapVersion string `json:"lastConfigMapVersion,omitempty"`
+
+	// LastEventSent is the timestamp of the last event sent
+	LastEventSent metav1.Time `json:"lastEventSent,omitempty"`
+
+	// Conditions represent the latest available observations of the ConfigMapWatcher's current state
+	Conditions []metav1.Condition `json:"conditions,omitempty"`
 }
 
 // +kubebuilder:object:root=true
